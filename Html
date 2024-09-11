@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Result Management System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">Student Result Management System</h1>
+    <div class="tabs">
+      <button class="tab-button" onclick="showTab('add-student')">Add Student</button>
+      <button class="tab-button" onclick="showTab('add-result')">Add Result</button>
+      <button class="tab-button" onclick="showTab('view-results')">View Results</button>
+    </div>
+
+    <!-- Add Student Form -->
+    <div class="tab-content" id="add-student">
+      <h2>Add New Student</h2>
+      <form id="studentForm" onsubmit="addStudent(event)">
+        <label for="studentName">Name:</label>
+        <input type="text" id="studentName" placeholder="Enter student name" required>
+        <label for="studentGrade">Grade:</label>
+        <input type="text" id="studentGrade" placeholder="Enter grade" required>
+        <button type="submit">Add Student</button>
+      </form>
+    </div>
+
+    <!-- Add Result Form -->
+    <div class="tab-content" id="add-result">
+      <h2>Add New Result</h2>
+      <form id="resultForm" onsubmit="addResult(event)">
+        <label for="studentSelect">Student:</label>
+        <select id="studentSelect" required>
+          <option value="">Select a student</option>
+        </select>
+        <label for="subject">Subject:</label>
+        <input type="text" id="subject" placeholder="Enter subject" required>
+        <label for="score">Score:</label>
+        <input type="number" id="score" placeholder="Enter score" required>
+        <button type="submit">Add Result</button>
+      </form>
+    </div>
+
+    <!-- View Results -->
+    <div class="tab-content" id="view-results">
+      <h2>View Results</h2>
+      <input type="text" id="searchTerm" placeholder="Search students..." oninput="filterResults()">
+      <table id="resultsTable">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Grade</th>
+            <th>Subject</th>
+            <th>Score</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
