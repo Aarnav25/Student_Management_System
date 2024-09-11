@@ -1,0 +1,61 @@
+let students = [];
+let results = [];
+
+function showTab(tabId) {
+  document.querySelectorAll('.tab-content').forEach(tab => {
+    tab.classList.remove('active');
+  });
+  document.getElementById(tabId).classList.add('active');
+}
+
+function addStudent(event) {
+  event.preventDefault();
+  
+  const studentName = document.getElementById('studentName').value;
+  const studentGrade = document.getElementById('studentGrade').value;
+  
+  if (studentName && studentGrade) {
+    const studentId = Date.now().toString();
+    students.push({ id: studentId, name: studentName, grade: studentGrade });
+    document.getElementById('studentSelect').innerHTML += `<option value="${studentId}">${studentName} - Grade ${studentGrade}</option>`;
+    
+    document.getElementById('studentForm').reset();
+    alert('Student added successfully!');
+  }
+}
+
+function addResult(event) {
+  event.preventDefault();
+
+  const studentId = document.getElementById('studentSelect').value;
+  const subject = document.getElementById('subject').value;
+  const score = document.getElementById('score').value;
+
+  if (studentId && subject && score) {
+    results.push({ studentId, subject, score: Number(score) });
+    document.getElementById('resultForm').reset();
+    alert('Result added successfully!');
+    filterResults();
+  }
+}
+
+function filterResults() {
+  const searchTerm = document.getElementById('searchTerm').value.toLowerCase();
+  const resultsTableBody = document.getElementById('resultsTable').querySelector('tbody');
+  resultsTableBody.innerHTML = '';
+
+  students.filter(student => {
+    return student.name.toLowerCase().includes(searchTerm) || student.grade.toLowerCase().includes(searchTerm);
+  }).forEach(student => {
+    results.filter(result => result.studentId === student.id).forEach(result => {
+      resultsTableBody.innerHTML += `
+        <tr>
+          <td>${student.name}</td>
+          <td>${student.grade}</td>
+          <td>${result.subject}</td>
+          <td>${result.score}</td>
+        </tr>
+      `;
+    });
+  });
+}
